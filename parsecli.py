@@ -1,5 +1,7 @@
 import argparse
 
+errorMsg = 'astrofetch: invalid combination of arguments\nsee astrofetch -h for usage'
+
 parser = argparse.ArgumentParser(
     prog='astrofetch',
     description='Fetch program to display the current zodiac season and system information.',
@@ -25,7 +27,10 @@ parser.add_argument(
     help='search for sign or date information. (eg: leo) (jan 1)')
 
 args = parser.parse_args()
-print('Debug (parsecli.py/arguments supplied):')
-print(args)
-print('')
-argline = parser.convert_arg_line_to_args(args)
+
+if args.small:
+    if args.mini or args.info:
+        exit(errorMsg)
+if args.mini:
+    if args.info:
+        exit(errorMsg)

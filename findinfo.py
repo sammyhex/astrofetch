@@ -1,4 +1,5 @@
 import subprocess
+import datetime
 
 def getUser():
     user = subprocess.check_output('whoami').decode('utf-8').rstrip()
@@ -49,3 +50,11 @@ def getMachineFamily():
             hardwareId = boardIdFile.read().strip()
 
     return hardwareId
+
+def getDate():
+    fulldate = datetime.datetime.now()
+    month = fulldate.strftime("%B")         # = August
+    day = fulldate.strftime("%d")           # = 27
+    time = fulldate.strftime("%H:%M")       # = 10:45
+    #monthday = (month+day)                  # = August27
+    return month, day, time

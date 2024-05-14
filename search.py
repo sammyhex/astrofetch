@@ -22,6 +22,16 @@ def formatInfoSupplied(infoSupplied):
 
         convertDateToStarsign(formattedMonth, formattedDay)
 
+def convertDateToSeason(signs): #add error handling
+        for sign in signs:
+            if sign.startmonth[:3] == currentDate.month[:3]:
+                if currentDate.day > sign.startday or currentDate.day == sign.startday:
+                    return sign
+                else:
+                    for sign in signs:
+                        if currentDate.month[:3] == sign.endmonth[:3]:
+                            return sign
+
 def convertDateToStarsign(month, day):
 # if you type non existant date like feb 31 it still runs, stop it
     monthSupplied = month
@@ -35,7 +45,7 @@ def convertDateToStarsign(month, day):
                 foundSign = sign
                 break
             else:
-                exit("Date error!")
+                searchSuccess = False
 
     if not searchSuccess:
         for sign in starsignList:
@@ -47,15 +57,15 @@ def convertDateToStarsign(month, day):
                 else:
                     exit('Date Error!')
 
-    if not searchSuccess:
-        print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
+        return foundSign
+        #print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
 
-    returnInfo = (monthSupplied + ' ' + daySupplied + ': ', 
-        foundSign.name + ' season.\n',
-        str(foundSign))
+    #returnInfo = (monthSupplied + ' ' + daySupplied + ': ', 
+     #   foundSign.name + ' season.\n',
+      #  str(foundSign))
 
-    print(''.join(returnInfo))
-    return returnInfo
+   # print(''.join(returnInfo))
+    #return returnInfo
 
 def convertStarsignToDate(infoSupplied):
     infoSupplied = str(infoSupplied[:-2][2:]).lower().title()

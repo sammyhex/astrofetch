@@ -1,6 +1,6 @@
 import signlogos
 
-def fullAstrofetch(leftSideInfo, rightSideInfo):
+def fullFetch(leftSideInfo, rightSideInfo):
     logoDict = signlogos.signs
     for prettyname, logo in logoDict.items():
         if prettyname == leftSideInfo.name:
@@ -10,6 +10,7 @@ def fullAstrofetch(leftSideInfo, rightSideInfo):
     print('')
 
     color = leftSideInfo.color
+    #color = rightSideInfo.color
     #for name, ansicode in color.items():
     #    if name.title() == leftSideInfo.name:
     #        color = ansicode
@@ -30,6 +31,9 @@ def fullAstrofetch(leftSideInfo, rightSideInfo):
                 print(color + line)
     print('')
 
-def smallAstrofetch(rightSideInfo, useUnicode):
-    if size == 'small':
-        print(rightSideInfo)
+def smallFetch(rightSideInfo):
+    print(rightSideInfo)
+
+def miniFetch(rightSideInfo):
+    print(rightSideInfo)
+
