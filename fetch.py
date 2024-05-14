@@ -13,8 +13,17 @@ class Bash():
         return host
 
     def getUptime():
-        uptime = subprocess.check_output(['uptime', '-p']).decode('utf-8').rstrip()
-        uptime = uptime[3:]
+        try:
+            uptime = subprocess.check_output(['uptime', '-p']).decode('utf-8').rstrip()
+            uptime = uptime[3:]
+        except:
+            uptime = subprocess.check_output(['cat', '/proc/uptime']).decode('utf-8').rstrip().split(' ')[0]
+            uptime = int(round(float(uptime))/60)
+            if uptime/60 > 1:
+                uptime = str(round(uptime/60)) + ' hours'
+            else:
+                uptime = str(uptime) + ' minutes'
+
         return uptime
     
     def getDistro():
