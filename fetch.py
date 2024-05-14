@@ -1,53 +1,6 @@
 import datetime
-import subprocess
+import findinfo
 import starsigns
-
-class Bash():
-    #setup so subprocess(oo).yada yada is just bashCommand(command)
-    def getUser():
-        user = subprocess.check_output('whoami').decode('utf-8').rstrip()
-        return user
-    
-    def getHost():
-        host = subprocess.check_output(['cat', '/etc/hostname']).decode('utf-8').rstrip()
-        return host
-
-    def getUptime():
-        try:
-            uptime = subprocess.check_output(['uptime', '-p']).decode('utf-8').rstrip()
-            uptime = uptime[3:]
-        except:
-            uptime = subprocess.check_output(['cat', '/proc/uptime']).decode('utf-8').rstrip().split(' ')[0]
-            uptime = int(round(float(uptime))/60)
-            if uptime/60 > 1:
-                uptime = str(round(uptime/60)) + ' hours'
-            else:
-                uptime = str(uptime) + ' minutes'
-
-        return uptime
-    
-    def getDistro():
-        distro = subprocess.check_output(['head', '-1', '/etc/os-release']).decode('utf-8').rstrip()
-        distro = distro.replace('NAME=', '')[1:-1]
-        return distro
-
-    def getKernel():
-        kernel = subprocess.check_output(['uname', '-r']).decode('utf-8').rstrip()
-        kernel = kernel.replace(".x86_64", '')
-        kernel = kernel.replace(".aarch64", '')
-        return kernel
-
-    def getMachineFamily():
-        command = 'cat /sys/devices/virtual/dmi/id/product_family'
-        command = command.split()
-        family = subprocess.check_output(command).decode('utf-8').rstrip()
-
-        if family == 'To be filled by O.E.M.':
-            command = 'cat /sys/devices/virtual/dmi/id/board_name'
-            command = command.split()
-            family = subprocess.check_output(command).decode('utf-8').rstrip()
-
-        return family
 
 class currentDate:
     fulldate = datetime.datetime.now()
@@ -70,16 +23,16 @@ class currentDate:
                             return sign
 
 class systemInfo:
-    user = Bash.getUser()
-    host = Bash.getHost()
+    user = findinfo.getUser()
+    host = findinfo.getHost()
     userhost = (user + '@' + host)
-    uptime = Bash.getUptime()
+    uptime = findinfo.getUptime()
     month = currentDate.month
     day = currentDate.day
     time = currentDate.time
-    distro = Bash.getDistro()
-    kernel = Bash.getKernel()
-    machine = Bash.getMachineFamily()
+    distro = findinfo.getDistro()
+    kernel = findinfo.getKernel()
+    machine = findinfo.getMachineFamily()
 
     def boldenText(self, text):
         text = '\033[1m' + text + '\033[0m'
