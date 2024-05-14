@@ -2,7 +2,7 @@ import starsigns
 
 starsignList = starsigns.signs
 
-def formatInfoSupplied(infoSupplied):
+def processInput(infoSupplied, useUnicode, printOutput):
 #split infoSupplied?
     if len(infoSupplied) == 1:
         infoSupplied = str(infoSupplied)
@@ -20,19 +20,19 @@ def formatInfoSupplied(infoSupplied):
                 info = info[:3]
                 formattedMonth = info.lower().title()
 
-        convertDateToStarsign(formattedMonth, formattedDay)
+        convertDateToStarsign(formattedMonth, formattedDay, printOutput)
 
-def convertDateToSeason(signs): #add error handling
-        for sign in signs:
-            if sign.startmonth[:3] == currentDate.month[:3]:
-                if currentDate.day > sign.startday or currentDate.day == sign.startday:
-                    return sign
-                else:
-                    for sign in signs:
-                        if currentDate.month[:3] == sign.endmonth[:3]:
-                            return sign
+#def convertDateToSeason(signs): #add error handling
+#        for sign in signs:
+#            if sign.startmonth[:3] == currentDate.month[:3]:
+#                if currentDate.day > sign.startday or currentDate.day == sign.startday:
+#                    return sign
+#                else:
+#                    for sign in signs:
+#                        if currentDate.month[:3] == sign.endmonth[:3]:
+#                            return sign
 
-def convertDateToStarsign(month, day):
+def convertDateToStarsign(month, day, printOutput):
 # if you type non existant date like feb 31 it still runs, stop it
     monthSupplied = month
     daySupplied = day
@@ -50,14 +50,13 @@ def convertDateToStarsign(month, day):
     if not searchSuccess:
         for sign in starsignList:
             if monthSupplied[:3] == sign.endmonth[:3]:
-                if daySupplied < sign.endday:
-                    searchSuccess = True
-                    foundSign = sign
-                    break
-                else:
-                    exit('Date Error!')
+                foundSign = sign
+                break
 
-        return foundSign
+    if printOutput:
+        print(foundSign)
+
+    return foundSign
         #print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
 
     #returnInfo = (monthSupplied + ' ' + daySupplied + ': ', 
@@ -78,8 +77,7 @@ def convertStarsignToDate(infoSupplied):
                 'Modality: ' + sign.modality.title()]
             break
 
-    if fullInfo:
-        print('\n'.join(fullInfo))
-    else:
-        print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
-        exit()
+    print('\n'.join(fullInfo))
+    #else:
+    #    print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
+    #    exit()

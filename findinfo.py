@@ -56,5 +56,4 @@ def getDate():
     month = fulldate.strftime("%B")         # = August
     day = fulldate.strftime("%d")           # = 27
     time = fulldate.strftime("%H:%M")       # = 10:45
-    #monthday = (month+day)                  # = August27
     return month, day, time

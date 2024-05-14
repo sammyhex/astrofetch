@@ -53,7 +53,7 @@ def smallFormat(sign, useUnicode):
         formattedSystemInfo = (
             time + 
             ' ' + 
-            str(month + ', ' + day) + 
+            str(month + ' ' + day) + 
             ', ' + 
             sign.name + 
             ' season.')

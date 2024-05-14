@@ -34,3 +34,6 @@ if args.small:
 if args.mini:
     if args.info:
         exit(errorMsg)
+if args.info and args.unicode:
+    if len(args.info) != 2:
+        exit(errorMsg)
