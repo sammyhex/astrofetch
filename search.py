@@ -3,14 +3,15 @@ import starsigns
 starsignList = starsigns.signs
 
 def processInput(infoSupplied, useUnicode, printOutput):
-#split infoSupplied?
-    if len(infoSupplied) == 1:
+    if len(infoSupplied) == 1: 
+    #user searched starsign
         infoSupplied = str(infoSupplied)
         formattedInfo = infoSupplied.lower().title()
 
-        convertStarsignToDate(formattedInfo)
+        convertStarsignToDate(formattedInfo, useUnicode) #pass unicode for ucode+date supplied result?
 
     else: 
+    #user searched date
         for info in infoSupplied:
             if info.isnumeric():
                 if int(info) > 31:
@@ -20,19 +21,9 @@ def processInput(infoSupplied, useUnicode, printOutput):
                 info = info[:3]
                 formattedMonth = info.lower().title()
 
-        convertDateToStarsign(formattedMonth, formattedDay, printOutput)
+        convertDateToStarsign(formattedMonth, formattedDay, printOutput, useUnicode)
 
-#def convertDateToSeason(signs): #add error handling
-#        for sign in signs:
-#            if sign.startmonth[:3] == currentDate.month[:3]:
-#                if currentDate.day > sign.startday or currentDate.day == sign.startday:
-#                    return sign
-#                else:
-#                    for sign in signs:
-#                        if currentDate.month[:3] == sign.endmonth[:3]:
-#                            return sign
-
-def convertDateToStarsign(month, day, printOutput):
+def convertDateToStarsign(month, day, printOutput, useUnicode):
 # if you type non existant date like feb 31 it still runs, stop it
     monthSupplied = month
     daySupplied = day
@@ -54,30 +45,36 @@ def convertDateToStarsign(month, day, printOutput):
                 break
 
     if printOutput:
-        print(foundSign)
+        if not useUnicode:
+            print(foundSign)
+        elif useUnicode:
+            print(foundSign.emoji)
 
     return foundSign
-        #print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
 
-    #returnInfo = (monthSupplied + ' ' + daySupplied + ': ', 
-     #   foundSign.name + ' season.\n',
-      #  str(foundSign))
-
-   # print(''.join(returnInfo))
-    #return returnInfo
-
-def convertStarsignToDate(infoSupplied):
+def convertStarsignToDate(infoSupplied, useUnicode):
     infoSupplied = str(infoSupplied[:-2][2:]).lower().title()
     
     for sign in starsignList:
         if infoSupplied == sign.name:
-            fullInfo = [str(sign),
+            resultForUnicode = [
+                sign.emoji, 
+                ' ', 
+                sign.startmonth[:3], 
+                ' ', 
+                sign.startday, 
+                ' -> ', 
+                sign.endmonth[:3], 
+                ' ', 
+                sign.endday]
+            resultForText = [
+                str(sign),
                 'Planet: ' + sign.planet.title(), 
                 'Element: ' + sign.element.title(),
                 'Modality: ' + sign.modality.title()]
             break
 
-    print('\n'.join(fullInfo))
-    #else:
-    #    print('Unknown argument: ' + infoSupplied + '\nSee astrofetch -h for usage.')
-    #    exit()
+    if not useUnicode:
+        print('\n'.join(resultForText))
+    elif useUnicode:
+        print(''.join(resultForUnicode))
