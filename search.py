@@ -2,25 +2,14 @@ import starsigns
 
 starsignList = starsigns.signs
 
-infoFormatErr = 'wrong wrONG WRONG!!'
-invalidSearchErr = 'astrofetch: invalid search term'
-invalidDateErr = 'astrofetch: invalid date'
-promptForHelp = 'see astrofetch -h for usage'
-    
+errShowUsage = 'usage: astrofetch [-h] [-s] [-m] [-u] [-i  [...]]\n'
+invalidInfoArg = 'astrofetch: error: argument -i/--info: invalid query'
+exitBadSearch = (errShowUsage + invalidInfoArg)
+   
 def processInput(infoSupplied, useUnicode, printOutput):
     #Error handling
     if len(infoSupplied) > 2:
-        print(invalidSearchErr)
-        exit(promptForHelp)
-
-    for info in infoSupplied:
-        if info.isnumeric():
-            if int(info) > 31 or int(info) < 1:
-                print(invalidDateErr)
-                exit(promptForHelp)
-        elif len(info) > 11:
-            print(invalidSearchErr)
-            exit(promptForHelp)
+        exit(exitBadSearch)
 
     #1 arg = user likely searched starsign
     if len(infoSupplied) == 1: 
@@ -31,6 +20,7 @@ def processInput(infoSupplied, useUnicode, printOutput):
 
     #2 args = user likely searched date
     elif len(infoSupplied) == 2: 
+
         for info in infoSupplied:
             if info.isnumeric():
                 formattedDay = info
@@ -38,21 +28,21 @@ def processInput(infoSupplied, useUnicode, printOutput):
                 info = info[:3]
                 formattedMonth = info.lower().title()
 
-        convertDateToStarsign(formattedMonth, formattedDay, printOutput, useUnicode)
+        try:
+            convertDateToStarsign(formattedMonth, formattedDay, printOutput, useUnicode)
+        except:
+            exit(exitBadSearch)
     
 def convertDateToStarsign(month, day, printOutput, useUnicode):
     monthSupplied = month[:3]
     daySupplied = day
     day30 = ['Feb', 'Apr', 'Jun', 'Sep', 'Nov']
     searchSuccess = False
-
-    if monthSupplied in day30:
-        if int(daySupplied) > 30:
-            print(invalidDateErr)
-            exit(promptForHelp)
-        elif int(daySupplied) > 29 and monthSupplied == 'Feb':
-            print(invalidDateErr)
-            exit(promptForHelp)
+    
+    if int(daySupplied) > 31:
+        exit(exitBadSearch)
+    elif int(daySupplied) > 30 and monthSupplied in day30 or int(daySupplied) > 29 and monthSupplied == day30[0]:
+        exit(exitBadSearch)
     
     for sign in starsignList:
         if monthSupplied == sign.startmonth[:3]:
@@ -69,8 +59,7 @@ def convertDateToStarsign(month, day, printOutput, useUnicode):
                 break
     
     if not searchSuccess:
-        print(invalidDateErr)
-        exit(promptForHelp)
+        exit(exitBadSearch)
 
     if printOutput:
         if not useUnicode:
@@ -105,8 +94,7 @@ def convertStarsignToDate(infoSupplied, useUnicode):
             break
     
     if not searchSuccess:
-        print(invalidSearchErr)
-        exit(promptForHelp)
+        exit(exitBadSearch)
 
     if not useUnicode:
         print('\n'.join(resultForText))
