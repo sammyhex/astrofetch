@@ -4,7 +4,7 @@ starsignList = starsigns.signs
 
 infoFormatErr = 'wrong wrONG WRONG!!'
 invalidSearchErr = 'astrofetch: invalid search term'
-invalidDateErr = 'astrofetch: invalid date format'
+invalidDateErr = 'astrofetch: invalid date'
 promptForHelp = 'see astrofetch -h for usage'
     
 def processInput(infoSupplied, useUnicode, printOutput):
@@ -27,7 +27,7 @@ def processInput(infoSupplied, useUnicode, printOutput):
         infoSupplied = str(infoSupplied)
         formattedInfo = infoSupplied.lower().title()
 
-        convertStarsignToDate(formattedInfo, useUnicode) #pass unicode for ucode+date supplied result?
+        convertStarsignToDate(formattedInfo, useUnicode)
 
     #2 args = user likely searched date
     elif len(infoSupplied) == 2: 
@@ -41,13 +41,21 @@ def processInput(infoSupplied, useUnicode, printOutput):
         convertDateToStarsign(formattedMonth, formattedDay, printOutput, useUnicode)
     
 def convertDateToStarsign(month, day, printOutput, useUnicode):
-# if you type non existant date like feb 31 it still runs, stop it
-    monthSupplied = month
+    monthSupplied = month[:3]
     daySupplied = day
+    day30 = ['Feb', 'Apr', 'Jun', 'Sep', 'Nov']
     searchSuccess = False
+
+    if monthSupplied in day30:
+        if int(daySupplied) > 30:
+            print(invalidDateErr)
+            exit(promptForHelp)
+        elif int(daySupplied) > 29 and monthSupplied == 'Feb':
+            print(invalidDateErr)
+            exit(promptForHelp)
     
     for sign in starsignList:
-        if monthSupplied[:3] == sign.startmonth[:3]:
+        if monthSupplied == sign.startmonth[:3]:
             if daySupplied > sign.startday or daySupplied == sign.startday:
                 searchSuccess = True
                 foundSign = sign
@@ -55,11 +63,11 @@ def convertDateToStarsign(month, day, printOutput, useUnicode):
 
     if not searchSuccess:
         for sign in starsignList:
-            if monthSupplied[:3] == sign.endmonth[:3]:
+            if monthSupplied == sign.endmonth[:3]:
                 searchSuccess = True
                 foundSign = sign
                 break
-
+    
     if not searchSuccess:
         print(invalidDateErr)
         exit(promptForHelp)
