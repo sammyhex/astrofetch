@@ -24,6 +24,8 @@ def fullFormat(sign): #organize this so its quicker, ur running 2 ifs. match may
         dashline = ('-' * (len(month + day + time) + 9))
     if len(machine) + 9 > len(dashline):
         dashline = ('-' * (len(machine) + 9))
+    elif len(kernel) + 9 > len(dashline):
+        dashline = ('-' * (len(kernel) + 9))
 
     systemPortion = (
         userhost, 

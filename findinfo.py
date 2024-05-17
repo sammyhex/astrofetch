@@ -32,7 +32,16 @@ def getUptime():
 
 def getDistro():
     with open("/etc/os-release") as distroFile:
-        distro = distroFile.read().split("\n")[0]
+        distroList = distroFile.read().split("\n")
+
+    NAME1 = distroList[0]
+    NAME2 = distroList[1]
+
+    if NAME1[:6] == "PRETTY":
+        distro = NAME2
+    else:
+        distro = NAME1
+
     distro = distro.replace('NAME=', '')[1:-1]
     return distro
 
@@ -48,6 +57,9 @@ def getMachineFamily():
     if hardwareId == 'To be filled by O.E.M.':
         with open("/sys/devices/virtual/dmi/id/board_name") as boardIdFile:
             hardwareId = boardIdFile.read().strip()
+    elif hardwareId == '':
+        with open("/sys/devices/virtual/dmi/id/sys_vendor") as vendorIdFile:
+            hardwareId = vendorIdFIle.read().strip()
 
     return hardwareId
 
