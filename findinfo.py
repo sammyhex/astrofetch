@@ -1,3 +1,4 @@
+import os
 import subprocess
 import datetime
 
@@ -50,6 +51,35 @@ def getKernel():
     kernel = kernel.replace(".x86_64", '')
     kernel = kernel.replace(".aarch64", '')
     return kernel
+
+def getShell():
+    shells = ['/bin/bash', '/bin/zsh', '/bin/fish']
+    installedShells = []
+    currentShell = ''
+
+    for shell in shells:
+        if os.path.isfile(shell):
+            installedShells.append(shell)
+
+    for shell in installedShells:
+        match shell:
+            case '/bin/zsh':
+                shell = subprocess.check_output(['zsh', '--version']).decode('utf-8').rstrip()
+                shell = shell.split(' ')[:-1]
+                shell = ' '.join(shell)
+                currentShell = currentShell + shell + ', '
+            case '/bin/fish':
+                shell = 'fishxx'
+                currentShell = currentShell + shell + ', '
+
+    if currentShell == '':
+        shell = subprocess.check_output(['bash', '--version']).decode('utf-8').rstrip()
+        bashVersion = shell.split(' ')[3]
+        bashVersionNumber = bashVersion.split('(')
+        shell = bashVersionNumber[0]
+        currentShell = 'bash ' + shell + 'xx'
+
+    return currentShell[:-2]
 
 def getMachineFamily():
     with open("/sys/devices/virtual/dmi/id/product_family") as hardwareIdFile:

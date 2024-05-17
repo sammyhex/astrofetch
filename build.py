@@ -10,11 +10,6 @@ def fullFetch(leftSideInfo, rightSideInfo):
     print('')
 
     color = leftSideInfo.color
-    #color = rightSideInfo.color
-    #for name, ansicode in color.items():
-    #    if name.title() == leftSideInfo.name:
-    #        color = ansicode
-    #        break 
 
     rightSideInfo = list(rightSideInfo)
 

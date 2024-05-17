@@ -9,10 +9,11 @@ uptime = findinfo.getUptime()
 month, day, time = findinfo.getDate()
 distro = findinfo.getDistro()
 kernel = findinfo.getKernel()
+shell = findinfo.getShell()
 machine = findinfo.getMachineFamily()
 
-def boldenText(text):
-    text = '\033[1m' + text + '\033[0m'
+def boldenText(text, color):
+    text = color + '\033[1m' + text + '\033[0m'
     return text
 
 def fullFormat(sign): #organize this so its quicker, ur running 2 ifs. match maybe
@@ -30,21 +31,22 @@ def fullFormat(sign): #organize this so its quicker, ur running 2 ifs. match may
     systemPortion = (
         userhost, 
         dashline,
-        boldenText('Date: ') + month + ' ' + day + ', ' + time, 
+        boldenText('Date: ', sign.color) + month + ' ' + day + ', ' + time, 
         dashline, 
-        boldenText('OS: ') + distro, 
-        boldenText('Kernel: ') + kernel, 
-        boldenText('Uptime: ') + uptime, 
-        boldenText('Machine: ') + machine,
+        boldenText('OS: ', sign.color) + distro, 
+        boldenText('Kernel: ', sign.color) + kernel, 
+        boldenText('Uptime: ', sign.color) + uptime, 
+        boldenText('Shell: ', sign.color) + shell,
+        boldenText('Machine: ', sign.color) + machine,
         dashline)
 
     astrologyPortion = (
-        boldenText('Season: ') + sign.name, 
-        boldenText('Starts: ') + sign.startmonth + ' ' + sign.startday, 
-        boldenText('Ends: ') + sign.endmonth + ' ' + sign.endday, 
-        boldenText('Planet: ') + sign.planet.title(), 
-        boldenText('Element: ') + sign.element.title(), 
-        boldenText('Modality: ') + sign.modality.title())
+        boldenText('Season: ', sign.color) + sign.name, 
+        boldenText('Starts: ', sign.color) + sign.startmonth + ' ' + sign.startday, 
+        boldenText('Ends: ', sign.color) + sign.endmonth + ' ' + sign.endday, 
+        boldenText('Planet: ', sign.color) + sign.planet.title(), 
+        boldenText('Element: ', sign.color) + sign.element.title(), 
+        boldenText('Modality: ', sign.color) + sign.modality.title())
 
     formattedSystemInfo = (systemPortion + astrologyPortion)
 
