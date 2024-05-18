@@ -2,7 +2,6 @@ import argparse
 
 errorMsg = 'see astrofetch -h for usage'
 argComboErr = 'astrofetch: invalid combination of arguments'
-unicodeWarn = 'astrofetch: -u with -s not yet supported'
 unicodeErr = 'astrofetch: invalid use cannot show date as unicode'
 
 parser = argparse.ArgumentParser(
@@ -32,9 +31,6 @@ parser.add_argument(
 args = parser.parse_args()
 
 if args.small:
-    if args.unicode:
-        args.unicode = False
-        print(unicodeWarn)
     if args.mini or args.info:
         print(argComboErr)
         exit(errorMsg)
