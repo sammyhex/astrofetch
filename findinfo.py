@@ -69,7 +69,8 @@ def getShell():
                 shell = ' '.join(shell)
                 currentShell = currentShell + shell + ', '
             case '/bin/fish':
-                shell = 'fishxx'
+                shell = subprocess.check_output(['fish', '--version']).decode('utf-8').rstrip()
+                shell = 'fish ' + shell.split(' ')[-1]
                 currentShell = currentShell + shell + ', '
 
     if currentShell == '':
