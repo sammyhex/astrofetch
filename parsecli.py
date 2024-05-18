@@ -7,7 +7,7 @@ unicodeErr = 'astrofetch: invalid use cannot show date as unicode'
 parser = argparse.ArgumentParser(
     prog='astrofetch',
     description='Fetch program to display the current zodiac season and system information.',
-    epilog=f"Hiiii I'm at the bottom!! Wowee", formatter_class=argparse.RawDescriptionHelpFormatter)
+    epilog=f"NOTE: -u cannot be used alone. It must accompany -s, -i or -m", formatter_class=argparse.RawDescriptionHelpFormatter)
 
 parser.add_argument(
     '-s', '--small', 
