@@ -13,21 +13,64 @@ def getHost():
     return host
 
 def getUptime():
-    try:
-        uptime = subprocess.check_output(['uptime', '-p']).decode('utf-8').rstrip()
-        uptime = uptime[3:]
-    except:
-        with open("/proc/uptime") as uptimeFile:
-            uptime = uptimeFile.read().split(' ')[0]
-        uptime = int(round(float(uptime))/60)
-        if uptime/60 > 1:
-            uptime = str(round(uptime/60)) + ' hours'
-        else:
-            if uptime < 2:
-                uptimeSuffix = ' minute'
-            else:
-                uptimeSuffix = ' minutes'
-            uptime = str(uptime) + uptimeSuffix
+    with open("/proc/uptime") as uptimeFile:
+        uptime = uptimeFile.read().split(' ')[0]
+
+    rawUptime = round(float(uptime))
+
+    oneMin = 60
+    oneHour = 3600
+    oneDay = 86400
+    oneWeek = 604800
+    oneYear = 31556952
+
+    if rawUptime <= oneMin:
+        uptimeA = str(rawUptime) + " seconds"
+        uptimeB = ''
+    elif rawUptime <= oneHour:
+        upMinutes = divmod(rawUptime, oneMin)
+
+        uptimeA = str(upMinutes[0]) + " minutes"
+        uptimeB = ''
+    elif rawUptime <= oneDay:
+        upHours = divmod(rawUptime, oneHour)
+        upMinutes = divmod(upHours[1], oneMin)
+
+        uptimeA = str(upHours[0]) + " hours"
+        uptimeB = str(upMinutes[0]) + " minutes"
+    elif rawUptime <= oneWeek:
+        upDays = divmod(rawUptime, oneDay)
+        upHours = divmod(upDays[1], oneHour)
+
+        uptimeA = str(upDays[0]) + " days"
+        uptimeB = str(upHours[0]) + " hours"
+    elif rawUptime <= oneYear:
+        upWeeks = divmod(rawUptime, oneWeek)
+        upDays = divmod(upWeeks[1], oneDay)
+
+        uptimeA = str(upWeeks[0]) + " weeks"
+        uptimeB = str(upDays[0]) + " days"
+    else:
+        upYears = divmod(rawUptime, oneYear)
+        upDays = divmod(upYears[1], oneDay)
+
+        uptimeA = str(upYears[0]) + " years"
+        uptimeB = str(upDays[0]) + " days"
+
+    uptimePair = [uptimeA, uptimeB]
+
+    count = 0
+    for value in uptimePair:
+        if value[:2] == '1 ':
+            uptimePair[count] = value[:-1]
+        elif value[:2] == '0 ':
+            uptimePair[count] = ''
+        count = count + 1
+
+    if uptimePair[1] == '':
+        uptime = str(uptimePair[0])
+    else:
+        uptime = str(uptimePair[0]) + ', ' + str(uptimePair[1])
 
     return uptime
 
