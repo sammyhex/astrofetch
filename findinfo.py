@@ -83,6 +83,8 @@ def getDistro():
 
     if NAME1[:6] == "PRETTY":
         distro = NAME2
+    elif NAME1[:3] == "BUG": #nix-specific
+        distro = NAME1[-22:-15]
     else:
         distro = NAME1
 
