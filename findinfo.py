@@ -3,7 +3,7 @@ import subprocess
 import datetime
 
 def getUser():
-    user = subprocess.check_output('whoami').decode('utf-8').rstrip()
+    user = os.environ['USER']
     return user
 
 def getHost():
@@ -53,34 +53,29 @@ def getKernel():
     return kernel
 
 def getShell():
-    shells = ['/bin/bash', '/bin/zsh', '/bin/fish']
-    installedShells = []
     currentShell = ''
 
-    for shell in shells:
-        if os.path.isfile(shell):
-            installedShells.append(shell)
+    shell = os.environ['SHELL']
+    shell = shell.split('/')[-1]
 
-    for shell in installedShells:
-        match shell:
-            case '/bin/zsh':
-                shell = subprocess.check_output(['zsh', '--version']).decode('utf-8').rstrip()
-                shell = shell.split(' ')[:-1]
-                shell = ' '.join(shell)
-                currentShell = currentShell + shell + ', '
-            case '/bin/fish':
-                shell = subprocess.check_output(['fish', '--version']).decode('utf-8').rstrip()
-                shell = 'fish ' + shell.split(' ')[-1]
-                currentShell = currentShell + shell + ', '
+    match shell:
+        case 'bash':
+            shell = subprocess.check_output(['bash', '--version']).decode('utf-8').rstrip()
+            bashVersion = shell.split(' ')[3]
+            bashVersionNumber = bashVersion.split('(')
+            shell = bashVersionNumber[0]
+            currentShell = 'bash ' + shell
+        case 'zsh':
+            shell = subprocess.check_output(['zsh', '--version']).decode('utf-8').rstrip()
+            shell = shell.split(' ')[:-1]
+            shell = ' '.join(shell)
+            currentShell = currentShell + shell
+        case 'fish':
+            shell = subprocess.check_output(['fish', '--version']).decode('utf-8').rstrip()
+            shell = 'fish ' + shell.split(' ')[-1]
+            currentShell = currentShell + shell
 
-    if currentShell == '':
-        shell = subprocess.check_output(['bash', '--version']).decode('utf-8').rstrip()
-        bashVersion = shell.split(' ')[3]
-        bashVersionNumber = bashVersion.split('(')
-        shell = bashVersionNumber[0]
-        currentShell = 'bash ' + shell + 'xx'
-
-    return currentShell[:-2]
+    return currentShell
 
 def getMachineFamily():
     with open("/sys/devices/virtual/dmi/id/product_family") as hardwareIdFile:
