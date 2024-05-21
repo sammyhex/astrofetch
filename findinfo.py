@@ -92,9 +92,12 @@ def getDistro():
     return distro
 
 def getKernel():
-    kernel = subprocess.check_output(['uname', '-r']).decode('utf-8').rstrip()
-    kernel = kernel.replace(".x86_64", '')
-    kernel = kernel.replace(".aarch64", '')
+    with open("/proc/sys/kernel/osrelease") as kernelFile:
+        kernelVersion = kernelFile.read()
+    
+    kernel = kernelVersion.strip().split('-')[0]
+    kernel = kernel.replace(".x86_64", '').replace(".aarch64", ' ')
+
     return kernel
 
 def getDesktopEnv():
