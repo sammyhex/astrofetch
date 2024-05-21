@@ -113,6 +113,8 @@ def getDesktopEnv():
             deVersion = subprocess.check_output(['xfce4-session', '--version']).decode('utf-8').rstrip()
             deVersion = deVersion.split(' ')[1]
             desktopEnv = 'Xfce ' + deVersion
+        case 'pop':
+            desktopEnv = 'Cosmic'
         case _:
             if desktopEnv == '':
                 desktopEnv = ' - '
