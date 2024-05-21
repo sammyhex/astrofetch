@@ -11,6 +11,7 @@ distro = findinfo.getDistro()
 kernel = findinfo.getKernel()
 shell = findinfo.getShell()
 machine = findinfo.getMachineFamily()
+desktop = findinfo.getDesktopEnv()
 
 def boldenText(text, color):
     text = color + '\033[1m' + text + '\033[0m'
@@ -37,6 +38,7 @@ def fullFormat(sign): #organize this so its quicker, ur running 2 ifs. match may
         boldenText('Kernel: ', sign.color) + kernel, 
         boldenText('Uptime: ', sign.color) + uptime, 
         boldenText('Shell: ', sign.color) + shell,
+        boldenText('DE: ', sign.color) + desktop,
         boldenText('Machine: ', sign.color) + machine,
         dashline)
 

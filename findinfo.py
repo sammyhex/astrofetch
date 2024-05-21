@@ -97,6 +97,30 @@ def getKernel():
     kernel = kernel.replace(".aarch64", '')
     return kernel
 
+def getDesktopEnv():
+    desktopEnv = os.environ['DESKTOP_SESSION']
+    match desktopEnv:
+        case 'gnome':
+            deVersion = subprocess.check_output(['gnome-shell', '--version']).decode('utf-8').rstrip()
+            desktopEnv = deVersion.replace('Shell ', '')
+        case 'plasmax11' | 'plasma':
+            desktopEnv = 'KDE Plasma'
+        case 'awesome':
+            deVersion = subprocess.check_output(['awesome', '-v']).decode('utf-8').rstrip()
+            deVersion = deVersion.split(' ')[1]
+            desktopEnv = 'AwesomeWM ' + deVersion[1:]
+        case 'xfce':
+            deVersion = subprocess.check_output(['xfce4-session', '--version']).decode('utf-8').rstrip()
+            deVersion = deVersion.split(' ')[1]
+            desktopEnv = 'Xfce ' + deVersion
+        case _:
+            if desktopEnv == '':
+                desktopEnv = ' - '
+            else:
+                desktopEnv = desktopEnv.lower().title()
+
+    return desktopEnv
+
 def getShell():
     currentShell = ''
 
