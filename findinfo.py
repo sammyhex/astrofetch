@@ -154,7 +154,7 @@ def getMachineFamily():
             hardwareId = boardIdFile.read().strip()
     elif hardwareId == '':
         with open("/sys/devices/virtual/dmi/id/sys_vendor") as vendorIdFile:
-            hardwareId = vendorIdFIle.read().strip()
+            hardwareId = vendorIdFile.read().strip()
 
     return hardwareId
 
