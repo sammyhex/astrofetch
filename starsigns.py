@@ -68,7 +68,7 @@ cancer = Starsign(
     '\U0001F31A',
     'water',
     'cardinal',
-    '\033[47m')
+    '\033[32m')
 
 leo = Starsign(
     'Leo', 
@@ -112,7 +112,7 @@ scorpio = Starsign(
     '\U0001F311',
     'water',
     'fixed',
-    '\033[37m')
+    '\033[92m')
 
 sagittarius = Starsign(
     'Sagittarius', 
@@ -134,7 +134,7 @@ capricorn = Starsign(
     '\U0001FA90',
     'earth',
     'cardinal',
-    '\033[37m')
+    '\033[35m')
 
 aquarius = Starsign(
     'Aquarius',

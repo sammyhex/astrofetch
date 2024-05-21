@@ -1,8 +1,3 @@
-# each logo has to be broken down into a list where every line is an individual item. then
-# a for loop iterates each line, adds the other side (fetch) with a nested for loop. any 
-# extra lines need to be dealt with somehow
-
-####################################
 aries = [
 '                          *         ',
 '          ..     *    ..            ',
@@ -200,8 +195,8 @@ aquarius = [
 '                                    ',
 '    *   .x^^^~. * x^^~.          *  ',
 '*     ./  +.~~^ .^  ++.^ x^^~.      ',
-'     /~  ++/  .^  +/^^ .^   ++^.    ',
-'    ;~   +;  .^  ++;  .^  ++./^     ',
+'     /~  ++/ ./^  +/^^ .^   ++^.    ',
+'    ;~   +;  ;^  ++;  .^  ++./^     ',
 ' *  ;~   +; .^    +` .^   +/    *   ',
 '   .^    +`/~      +/~    +; *      ',
 '  .^~   ++/~     ++/~    ++`        ',
@@ -234,4 +229,16 @@ sagittarius = [
 '  *           *       *             '] 
 ####################################
 
-signs = { 'Aries': aries, 'Taurus': taurus, 'Gemini': gemini, 'Virgo': virgo, 'Scorpio': scorpio, 'Cancer': cancer, 'Libra': libra, 'Capricorn': capricorn, 'Leo': leo, 'Pisces': pisces, 'Aquarius': aquarius, 'Sagittarius': sagittarius }
+signs = { 
+    'Aries': aries, 
+    'Taurus': taurus, 
+    'Gemini': gemini, 
+    'Virgo': virgo, 
+    'Scorpio': scorpio, 
+    'Cancer': cancer, 
+    'Libra': libra, 
+    'Capricorn': capricorn, 
+    'Leo': leo, 
+    'Pisces': pisces, 
+    'Aquarius': aquarius, 
+    'Sagittarius': sagittarius }
