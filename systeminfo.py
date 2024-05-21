@@ -30,7 +30,7 @@ def fullFormat(sign): #organize this so its quicker, ur running 2 ifs. match may
         dashline = ('-' * (len(kernel) + 9))
 
     systemPortion = (
-        userhost, 
+        boldenText(userhost, sign.color),
         dashline,
         boldenText('Date: ', sign.color) + month + ' ' + day + ', ' + time, 
         dashline, 
