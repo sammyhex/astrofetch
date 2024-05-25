@@ -18,59 +18,59 @@ def getUptime():
 
     rawUptime = round(float(uptime))
 
-    oneMin = 60
-    oneHour = 3600
-    oneDay = 86400
-    oneWeek = 604800
-    oneYear = 31556952
+    ONEMIN = 60
+    ONEHOUR = 3600
+    ONEDAY = 86400
+    ONEWEEK = 604800
+    ONEYEAR = 31556952
 
-    if rawUptime <= oneMin:
+    if rawUptime <= ONEMIN:
         uptimeA = str(rawUptime) + " seconds"
         uptimeB = ''
-    elif rawUptime <= oneHour:
-        upMinutes = divmod(rawUptime, oneMin)
 
+    elif rawUptime <= ONEHOUR:
+        upMinutes = divmod(rawUptime, ONEMIN)
         uptimeA = str(upMinutes[0]) + " minutes"
         uptimeB = ''
-    elif rawUptime <= oneDay:
-        upHours = divmod(rawUptime, oneHour)
-        upMinutes = divmod(upHours[1], oneMin)
 
+    elif rawUptime <= ONEDAY:
+        upHours = divmod(rawUptime, ONEHOUR)
+        upMinutes = divmod(upHours[1], ONEMIN)
         uptimeA = str(upHours[0]) + " hours"
         uptimeB = str(upMinutes[0]) + " minutes"
-    elif rawUptime <= oneWeek:
-        upDays = divmod(rawUptime, oneDay)
-        upHours = divmod(upDays[1], oneHour)
 
+    elif rawUptime <= ONEWEEK:
+        upDays = divmod(rawUptime, ONEDAY)
+        upHours = divmod(upDays[1], ONEHOUR)
         uptimeA = str(upDays[0]) + " days"
         uptimeB = str(upHours[0]) + " hours"
-    elif rawUptime <= oneYear:
-        upWeeks = divmod(rawUptime, oneWeek)
-        upDays = divmod(upWeeks[1], oneDay)
 
+    elif rawUptime <= ONEYEAR:
+        upWeeks = divmod(rawUptime, ONEWEEK)
+        upDays = divmod(upWeeks[1], ONEDAY)
         uptimeA = str(upWeeks[0]) + " weeks"
         uptimeB = str(upDays[0]) + " days"
-    else:
-        upYears = divmod(rawUptime, oneYear)
-        upDays = divmod(upYears[1], oneDay)
 
+    else:
+        upYears = divmod(rawUptime, ONEYEAR)
+        upDays = divmod(upYears[1], ONEDAY)
         uptimeA = str(upYears[0]) + " years"
         uptimeB = str(upDays[0]) + " days"
 
-    uptimePair = [uptimeA, uptimeB]
+    totalUptime = [uptimeA, uptimeB]
 
     count = 0
-    for value in uptimePair:
+    for value in totalUptime:
         if value[:2] == '1 ':
-            uptimePair[count] = value[:-1]
+            totalUptime[count] = value[:-1]
         elif value[:2] == '0 ':
-            uptimePair[count] = ''
+            totalUptime[count] = ''
         count = count + 1
 
-    if uptimePair[1] == '':
-        uptime = str(uptimePair[0])
+    if totalUptime[1] == '':
+        uptime = str(totalUptime[0])
     else:
-        uptime = str(uptimePair[0]) + ', ' + str(uptimePair[1])
+        uptime = str(totalUptime[0]) + ', ' + str(totalUptime[1])
 
     return uptime
 
