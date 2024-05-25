@@ -157,6 +157,9 @@ def getMachineFamily():
     if hardwareId == 'To be filled by O.E.M.':
         with open("/sys/devices/virtual/dmi/id/board_name") as boardIdFile:
             hardwareId = boardIdFile.read().strip()
+            if hardwareId[-1] == ')':
+                hardwareId = hardwareId.split('(')[0]
+            hardwareId = hardwareId.lower().title()
     elif hardwareId == '':
         with open("/sys/devices/virtual/dmi/id/sys_vendor") as vendorIdFile:
             hardwareId = vendorIdFile.read().strip()
