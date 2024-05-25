@@ -1,6 +1,6 @@
 import datetime
-import findinfo
-import starsigns
+from systeminfo import findinfo
+from signs import starsigns
 
 user = findinfo.getUser()
 host = findinfo.getHost()

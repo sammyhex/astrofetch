@@ -1,8 +1,8 @@
-import systeminfo
+from systeminfo import findinfo
+from systeminfo import formatinfo
 import build
-import starsigns
+from signs import starsigns
 import search
-import findinfo
 
 def matchCliArgs(arguments):
     showResult = False
@@ -12,11 +12,11 @@ def matchCliArgs(arguments):
     currentSeason = search.convertDateToStarsign(currentMonth, currentDay, showResult, useUnicode)
 
     if arguments.small:
-        build.smallFetch(systeminfo.smallFormat(currentSeason, arguments.unicode))
+        build.smallFetch(formatinfo.smallFormat(currentSeason, arguments.unicode))
     elif arguments.mini:
-        build.miniFetch(systeminfo.miniFormat(currentSeason, arguments.unicode))
+        build.miniFetch(formatinfo.miniFormat(currentSeason, arguments.unicode))
     elif arguments.info:
         showResult = True
         search.processInput(arguments.info, arguments.unicode, showResult)
     else:
-        build.fullFetch(currentSeason, systeminfo.fullFormat(currentSeason))
+        build.fullFetch(currentSeason, formatinfo.fullFormat(currentSeason))

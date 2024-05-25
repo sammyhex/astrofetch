@@ -1,4 +1,4 @@
-import starsigns
+from signs import starsigns
 
 starsignList = starsigns.signs
 

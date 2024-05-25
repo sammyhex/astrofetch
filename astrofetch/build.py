@@ -1,4 +1,4 @@
-import signlogos
+from signs import signlogos
 
 def fullFetch(leftSideInfo, rightSideInfo):
     logoDict = signlogos.signs
