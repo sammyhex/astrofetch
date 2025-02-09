@@ -1,0 +1,13 @@
+Sagittarius = { Name = "Sagittarius",
+    Unicode = "\u{264E}",
+    Start_Day = "22", 
+    Start_Mon = "11", 
+    Starts = "November 22",
+    End_Day = "21",
+    End_Mon = "12",
+    Ends = "December 21",
+    Tagline = "Sagittarius season runs from November 22 until December 21.",
+    Element = "Fire",
+    Planet = "Jupiter",
+    Modality = "Mutable",
+    Logo = require("user.logo.sagittarius") }

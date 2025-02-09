@@ -1,0 +1,18 @@
+return {
+'   .===.                            ',
+'      ^^o. .x;;x.                   ',
+'        ^;WMo~~oMW.                 ',
+'        /MMM^  ^MMM`                ',
+'        W+M^    ^M+W                ',
+'        W+W      W+W                ',
+'        M+M      M+M                ',
+'        W+W      W+W                ',
+'        M+M      M+M                ',
+'        WWW      W+W    ..OO..      ',
+'        MMM      M+M  .XO^  ^OX.    ',
+'        ^^^      W+W ;;        ;;   ',
+'                 MMM  ^Wo.  .oW^    ',
+'                 ^WWOWOW`OOO/^      ',
+'               .___...WO            ',
+'               ^~~~^^^^             ',
+'                                    '}

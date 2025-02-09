@@ -1,0 +1,13 @@
+Cancer = { Name = "Cancer",
+    Unicode = "\u{264B}",
+    Start_Day = "21", 
+    Start_Mon = "06", 
+    Starts = "June 21",
+    End_Day = "22",
+    End_Mon = "07",
+    Ends = "July 22",
+    Tagline = "Cancer season runs from  until .",
+    Element = "Water",
+    Planet = "Moon",
+    Modality = "Cardinal",
+    Logo = require("user.logo.cancer") }

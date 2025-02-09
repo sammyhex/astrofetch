@@ -1,0 +1,13 @@
+Leo = { Name = "Leo",
+    Unicode = "\u{264C}",
+    Start_Day = "23", 
+    Start_Mon = "07", 
+    Starts = "July 23",
+    End_Day = "22",
+    End_Mon = "08",
+    Ends = "August 22",
+    Tagline = "Leo season runs from July 23 until August 22.",
+    Element = "Fire",
+    Planet = "Sun",
+    Modality = "Fixed",
+    Logo = require("user.logo.leo") }

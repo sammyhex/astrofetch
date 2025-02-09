@@ -1,0 +1,117 @@
+#!/usr/bin/luajit
+local scr_path = debug.getinfo(1, "S").source:sub(2)
+scr_path = scr_path:match("(.*/)")
+package.path = scr_path .. "?.lua;" .. package.path
+require("config")
+
+local function to_ansi_value(rgb_value)
+    return rgb_value:gsub("-", ";") .. "m"
+end
+
+local function assign_color(color)
+    if color == nil then return to_ansi_value("245-107-107") else return to_ansi_value(color) end
+end
+
+local function add_color(line, color)
+    return "\27[1;38;2;" .. color .. line .. "\27[0m"
+end
+
+local function colorise_prefix(line, color)
+    if line == '' then return line else return add_color(line, color) end
+end
+
+local function capitalise(item)
+    return item:sub(1,1):upper() .. item:sub(2)
+end
+
+local function custom_separator()
+    if type(separator_length) == "number" then return separator_length else return 0 end
+end
+
+local function grow_separator(multiplier)
+    if separator_length then multiplier = custom_separator() end
+    return string.rep('-', multiplier)
+end
+
+local function assign_prefix(prefix, color, line)
+    if prefix == "Separator" then return grow_separator(first_item_length) end
+    if (plain_userhost and prefix == "Userhost") then return add_color(line, color) end
+    return colorise_prefix(prefix .. ": ", color) .. line
+end
+
+local function merge_prefix_content(prefixes, content, color)
+    first_item_length = (prefixes[1]:len() + content[1]:len() + 2)
+    for n, line in ipairs(content) do content[n] = assign_prefix(prefixes[n], color, line) end
+    return content
+end
+
+local function print_remaining_logo(n, logo, color)
+    while logo[n] ~= nil do
+        print(add_color(logo[n], color))
+        n = n + 1
+    end
+    print("")
+    os.exit(0)
+end
+
+local function print_remaining_text(n, items)
+    local whitespace_add = "                                    "
+    while items[n] ~= nil do
+        print(whitespace_add .. items[n])
+        n = n + 1
+    end
+    os.exit(0)
+end
+
+local function check_empty_side(items, n, logo, logo_color)
+    if items[n + 1] == nil then print_remaining_logo(n + 1, logo, logo_color) end
+    if logo[n + 1] == nil then print_remaining_text(n + 1, items) end
+end
+
+local function print_output(logo_color, logo, items)
+    local color_escape_code = "\27[0m"
+    print("")
+    local count = 1
+    for n, line in ipairs(logo) do
+        line = add_color(line, logo_color)
+        print(line .. items[n])
+        check_empty_side(items, n, logo, logo_color)
+    end
+    print("")
+end
+
+local function construct_fetch(prefixes, content)
+    for n, fetch_item in ipairs(config_items) do
+        if pcall(require, "system." .. fetch_item) then
+            content[n] = require("system." .. fetch_item)
+        elseif pcall(require, "user." .. fetch_item) then
+            content[n] = require("user." .. fetch_item)
+        else
+            print("Unknown fetch item: %s", fetch_item)
+        end
+        prefixes[n] = capitalise(fetch_item)
+    end
+    return prefixes, content
+end
+
+local function get_ascii_art()
+    if custom_ascii then return custom_ascii else return require("default_ascii") end
+end
+
+local function build_speclist(color)
+    local prefixes = {}
+    local content = {}
+    prefixes, content = construct_fetch(prefixes, content)
+    return merge_prefix_content(prefixes, content, color)
+end
+
+local function main()
+    local ascii_img = get_ascii_art()
+    local logo_color = assign_color(logo_color)
+    local text_color = assign_color(text_color)
+    local text_info = build_speclist(text_color)
+    print_output(logo_color, ascii_img, text_info)
+    os.exit(0)
+end
+
+main()

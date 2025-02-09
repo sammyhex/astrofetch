@@ -1,0 +1,13 @@
+Taurus = { Name = "Taurus",
+    Unicode = "\u{2649}",
+    Start_Day = "19", 
+    Start_Mon = "04", 
+    Starts = "April 18",
+    End_Day = "20",
+    End_Mon = "05",
+    Ends = "May 20",
+    Tagline = "Taurus season runs from April 18 until May 20.",
+    Element = "Earth",
+    Planet = "Venus",
+    Modality = "Fixed",
+    Logo = require("user.logo.taurus") }

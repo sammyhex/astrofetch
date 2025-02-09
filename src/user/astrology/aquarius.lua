@@ -1,0 +1,13 @@
+Aquarius = { Name = "Aquarius",
+    Unicode = "\u{2652}",
+    Start_Day = "20", 
+    Start_Mon = "01", 
+    End_Day = "18",
+    End_Mon = "02",
+    Starts = "January 20",
+    Ends = "February 18",
+    Tagline = "Aquarius season runs from  until .",
+    Element = "Air",
+    Planet = "Uranus",
+    Modality = "Fixed",
+    Logo = require("user.logo.aquarius") }

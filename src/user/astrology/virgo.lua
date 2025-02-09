@@ -1,0 +1,13 @@
+Virgo = { Name = "Virgo",
+    Unicode = "\u{264D}",
+    Start_Day = "23", 
+    Start_Mon = "08", 
+    Starts = "August 23",
+    End_Day = "23",
+    End_Mon = "09",
+    Ends = "September 23",
+    Tagline = "Virgo season runs from August 23 until September 23.",
+    Element = "Mercury",
+    Planet = "Earth",
+    Modality = "Mutable",
+    Logo = require("user.logo.virgo") }

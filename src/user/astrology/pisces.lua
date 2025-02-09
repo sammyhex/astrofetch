@@ -1,0 +1,13 @@
+Pisces = { Name = "Pisces",
+    Unicode = "\u{2653}",
+    Start_Day = "19", 
+    Start_Mon = "02", 
+    Starts = "February 19",
+    End_Day = "19",
+    End_Mon = "03",
+    Ends = "March 19",
+    Tagline = "Pisces season runs from February 19 until March 19.",
+    Element = "Water",
+    Planet = "Neptune",
+    Modality = "Mutable",
+    Logo = require("user.logo.pisces") }

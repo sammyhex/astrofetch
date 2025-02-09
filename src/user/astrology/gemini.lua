@@ -1,0 +1,13 @@
+Gemini = { Name = "Gemini",
+    Unicode = "\u{264A}",
+    Start_Day = "21", 
+    Start_Mon = "05", 
+    Starts = "May 21",
+    End_Day = "20",
+    End_Mon = "06",
+    Ends = "June 20",
+    Tagline = "Gemini season runs from  until .",
+    Element = "Air",
+    Planet = "Mercury",
+    Modality = "Mutable",
+    Logo = require("user.logo.gemini") }
