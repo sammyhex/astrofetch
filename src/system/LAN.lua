@@ -27,4 +27,4 @@ local network_info_file_location = "/proc/net/fib_trie"
 local network_info = read_file_contents(network_info_file_location)
 local network_err = "No connection"
 
-if network_info ~= 1 then return check_connectivity(get_ip_from_contents(network_info, network_err)) else return network_err end
+if network_info ~= 1 then return check_connectivity(get_ip_from_contents(network_info), network_err) else return network_err end
